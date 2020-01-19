@@ -7,6 +7,7 @@ import lombok.Getter;
 import javax.persistence.*;
 
 @Getter
+@Entity
 @Table(name = "USER",
         indexes = {@Index(name = "pk_user_id", columnList = "ID", unique = true)})
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
