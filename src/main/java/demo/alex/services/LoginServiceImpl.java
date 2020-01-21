@@ -4,6 +4,7 @@ import demo.alex.data.User;
 import demo.alex.exception.LoginException;
 import demo.alex.repository.UserRepository;
 import demo.alex.rest.LoginUser;
+import demo.alex.utils.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

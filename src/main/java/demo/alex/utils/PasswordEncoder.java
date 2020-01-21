@@ -1,4 +1,4 @@
-package demo.alex.services;
+package demo.alex.utils;
 
 import demo.alex.exception.LoginException;
 import lombok.AccessLevel;
@@ -41,15 +41,15 @@ public class PasswordEncoder {
         try {
             SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance(ALGORITHM);
             byte[] securePassword = secretKeyFactory.generateSecret(keySpec).getEncoded();
-            return Optional.of(Base64.getEncoder().encodeToString(securePassword));
 
+            return Optional.of(Base64.getEncoder().encodeToString(securePassword));
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
             log.error("Exception encountered while hashing password", e);
-            return Optional.empty();
-
         } finally {
             keySpec.clearPassword();
         }
+
+        return Optional.empty();
     }
 
     public static String generateSalt() {
