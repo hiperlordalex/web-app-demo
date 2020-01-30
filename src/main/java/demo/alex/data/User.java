@@ -4,13 +4,75 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import javax.persistence.*;
+
 @Getter
+@Entity
+@Table(name = "USER",
+        indexes = {@Index(name = "pk_user_id", columnList = "ID", unique = true)})
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends ContextData {
 
+    @Id
+    @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userId;
-    private String userName;
+
+    @Column(name = "NAME", nullable = false, length = 1000)
+    private String name;
+
+    @Column(name = "EMAIL", unique = true, nullable = false, length = 1000)
     private String email;
+
+    @Column(name = "PASSWORD", nullable = false, length = 4000)
     private String password;
+
+    private User(Builder builder) {
+        this.name = builder.name;
+        this.email = builder.email;
+        this.password = builder.password;
+    }
+
+    public static User createUser(Builder builder) {
+        return new User(builder);
+    }
+
+    public static Builder createBuilder() {
+        return new Builder();
+    }
+
+    public void changeName(String name) {
+        this.name = name;
+    }
+
+    public void updatePassword(String password) {
+        this.password = password;
+    }
+
+    public static class Builder {
+
+        private String name;
+        private String email;
+        private String password;
+
+        private Builder() {
+        }
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Builder password(String password) {
+            this.password = password;
+            return this;
+        }
+
+    }
 
 }
