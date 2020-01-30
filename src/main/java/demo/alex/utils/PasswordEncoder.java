@@ -25,10 +25,8 @@ public class PasswordEncoder {
     private static final SecureRandom RANDOM = new SecureRandom();
 
     public static Optional<String> hashPassword(String password, String salt) throws LoginException {
-
         if (password == null || password.length() == 0) {
-            log.error("Invalid password, password can not be null or empty, {}", password);
-            throw new LoginException();
+            throw new LoginException("Invalid password, password can not be null or empty");
         }
 
         char[] chars = password.toCharArray();

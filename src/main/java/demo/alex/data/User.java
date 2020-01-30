@@ -18,13 +18,13 @@ public class User extends ContextData {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userId;
 
-    @Column(name = "NAME")
+    @Column(name = "NAME", nullable = false, length = 1000)
     private String name;
 
-    @Column(name = "EMAIL")
+    @Column(name = "EMAIL", unique = true, nullable = false, length = 1000)
     private String email;
 
-    @Column(name = "PASSWORD")
+    @Column(name = "PASSWORD", nullable = false, length = 4000)
     private String password;
 
     private User(Builder builder) {
@@ -33,11 +33,11 @@ public class User extends ContextData {
         this.password = builder.password;
     }
 
-    public static User createUser(Builder builder){
+    public static User createUser(Builder builder) {
         return new User(builder);
     }
 
-    public static Builder createBuilder(){
+    public static Builder createBuilder() {
         return new Builder();
     }
 
