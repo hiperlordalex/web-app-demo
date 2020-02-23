@@ -29,4 +29,16 @@ public class LoginController {
             return ResponseEntity.badRequest().build();
         }
     }
+
+    public ResponseEntity newUser(LoginUser user) {
+        try {
+            boolean isLoginSuccessful = loginService.saveNewUser(user);
+            if (isLoginSuccessful) {
+                return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+            }
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+        } catch (LoginException e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }
