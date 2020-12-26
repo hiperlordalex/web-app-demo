@@ -2,7 +2,6 @@ package demo.alex.services;
 
 import demo.alex.data.Salt;
 import demo.alex.data.User;
-import demo.alex.exception.LoginException;
 import demo.alex.repository.SaltRepository;
 import demo.alex.repository.UserRepository;
 import demo.alex.rest.LoginUser;
@@ -17,8 +16,8 @@ import java.util.Optional;
 @Transactional
 public class LoginServiceImpl {
 
-    private UserRepository userRepository;
-    private SaltRepository saltRepository;
+    private final UserRepository userRepository;
+    private final SaltRepository saltRepository;
 
     @Autowired
     public LoginServiceImpl(UserRepository userRepository, SaltRepository saltRepository) {
@@ -26,8 +25,7 @@ public class LoginServiceImpl {
         this.saltRepository = saltRepository;
     }
 
-    public boolean saveNewUser(LoginUser loginUser) throws LoginException {
-
+    public boolean saveNewUser(LoginUser loginUser) {
         String salt = PasswordEncoder.generateSalt();
         Optional<String> encryptedPassword = PasswordEncoder.hashPassword(loginUser.getPassword(), salt);
         if (encryptedPassword.isPresent()) {
@@ -38,7 +36,7 @@ public class LoginServiceImpl {
             User user = User.createUser(builder);
 
             User savedUser = userRepository.save(user);
-            Salt userSalt = new Salt(savedUser.getUserId(),salt);
+            Salt userSalt = new Salt(savedUser.getUserId(), salt);
             saltRepository.save(userSalt);
 
             return true;

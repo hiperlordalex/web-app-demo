@@ -2,6 +2,11 @@ package demo.alex.repository;
 
 import demo.alex.data.User;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface UserRepository extends CrudRepository<User,Long> {
+@Repository
+public interface UserRepository extends CrudRepository<User, Long> {
+
+    User findByEmail(String email);
+
 }

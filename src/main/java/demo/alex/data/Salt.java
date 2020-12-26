@@ -3,22 +3,23 @@ package demo.alex.data;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Getter
 @Entity
 @Table(name = "SALT",
-        indexes = {@Index(name = "pk_user_id", columnList = "ID", unique = true)})
+        indexes = {@Index(name = "pk_salt_user_id", columnList = "USER_ID", unique = true)})
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
-public class Salt extends ContextData {
+@NoArgsConstructor
+public class Salt extends ContextData implements Serializable {
 
     @Id
-    @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "USER_ID", nullable = false)
     private Long userId;
 
-    @Id
     @Column(name = "SALT", nullable = false, length = 4000)
     private String salt;
 

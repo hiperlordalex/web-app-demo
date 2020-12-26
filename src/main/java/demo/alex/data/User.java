@@ -3,6 +3,7 @@ package demo.alex.data;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Table(name = "USER",
         indexes = {@Index(name = "pk_user_id", columnList = "ID", unique = true)})
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class User extends ContextData {
 
     @Id
